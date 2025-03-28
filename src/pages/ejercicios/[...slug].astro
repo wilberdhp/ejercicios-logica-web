@@ -1,0 +1,132 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { getCollection } from "astro:content";
+
+export async function getStaticPaths() {
+  const exercises = await getCollection('exercises');
+
+  return exercises.map((exercise) => ({
+    params: { slug: exercise.slug },
+    props: { exercise },
+  }));
+}
+
+const { exercise } = Astro.props;
+const { Content } = await exercise.render();
+---
+<Layout
+icon="../../images/favicon.png"
+  title={exercise.data.title}
+  metaDescription={exercise.data.description}
+  metaTitle={exercise.data.title}
+  metaOGUrl={`https://ejercicios-logica-javascript.netlify.app/ejercicios/${exercise.slug}`}
+>
+  <a class="link back" href="/#section-exercises" rel="noopener noreferrer">
+    <i class="bi bi-arrow-left-circle"></i>
+    Volver
+  </a>
+  <h1 class="exercise-title">{exercise.data.title}</h1>
+  <Content />
+
+  <div class="buttons-container">
+    
+    <button class="link copy" type="button" >
+      <i class="bi bi-clipboard"></i>
+      <i class="bi bi-clipboard-check disable"></i>
+      Copiar
+    </button>
+  </div>
+  
+</Layout>
+
+<style is:inline>
+  body {
+    padding: 60px 45px;
+    display: flex;
+    min-height: 100dvh;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  .exercise-title {
+    margin-bottom: 35px;;
+  }
+
+  .exercise-description, pre {
+    width: 100%;
+    max-width: 700px;
+    min-height: fit-content;
+  }
+
+  pre {
+    margin-top: 30px;
+    padding: 20px 30px;
+    border-radius: 10px;
+
+  }
+
+  .buttons-container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+  }
+
+  .bi-arrow-left-circle {
+    margin-right: 10px;
+  }
+
+  .link {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: rgb(23, 36, 80);
+    color: white;
+    text-decoration: none;
+    font-size: 20px;
+  }
+
+  .link.back {
+    position: absolute;
+    top: 10px;
+    left: 20px;
+  }
+
+  .copy {
+    background-color: rgb(5, 5, 30);
+    margin-bottom: 50px;
+    width: 110px;
+  }
+
+  .bi-clipboard-check.disable {
+    display: none;
+  }
+
+  .bi-clipboard.copied {
+    display: none;
+  }
+
+  h1, h2, h3, div, p {
+		color: var(--color-title)
+	}
+
+</style>
+
+<script is:inline>
+  const code = document.querySelector("pre code");
+  const btnCopy = document.querySelector(".copy");
+  const iconCopy = document.querySelector(".bi-clipboard");
+  const iconCopied = document.querySelector(".bi-clipboard-check");
+
+  btnCopy.addEventListener("click", () => {
+    navigator.clipboard.writeText(code.innerText);
+    iconCopied.classList.remove("disable")
+    iconCopy.classList.add("copied");
+
+    setTimeout(() => {
+      iconCopied.classList.add("disable")
+    iconCopy.classList.remove("copied");
+    }, 2000)
+  })
+</script>

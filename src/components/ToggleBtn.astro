@@ -1,0 +1,205 @@
+
+<div class="btn-dark-mode-toggle">
+  <i class="bi bi-moon-stars-fill"></i>
+  <i class="bi bi-brightness-high-fill"></i>
+
+  <label>
+    <input class="dark-mode" type="checkbox" />
+    <span class="circle"></span>
+  </label>
+</div>
+
+
+
+<style>
+  .btn-dark-mode-toggle {
+    position: fixed;
+    opacity: 0.5;
+    top: 50%;
+    right: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+
+    height: 70px;
+    width: 34px;
+    padding: 5px;
+    cursor: grab;
+
+    z-index: 99999;
+
+
+    border: 3px solid var(--color-toggle);
+    border-radius: 100vmax;
+
+    transition: opacity .3s ease;
+  }
+
+  .btn-dark-mode-toggle:hover {
+    opacity: 1;
+  }
+
+  label {
+    position: absolute;
+  }
+
+
+  input.dark-mode {
+    display: none;
+  }
+
+  i {
+    color: var(--color-toggle);
+  }
+
+  label {
+    cursor: pointer;
+    position: absolute;
+
+  }
+
+  .circle {
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    background-color: var(--color-toggle);
+    border-radius: 50%;
+    top: 31.5px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    transition: all .3s ease-in-out;
+  }
+
+
+
+  input.dark-mode:checked ~ .circle {
+    animation: toggle-btn both .1s ease-in-out;
+  }
+
+
+  @keyframes toggle-btn {
+    to {
+      top: -3px;
+    }
+  }
+
+</style>
+
+<script is:inline>
+  // Change Theme
+  let removeEvent = null;
+  const check = document.querySelector("input");
+  const prefersDark = window.matchMedia("(prefers-color-scheme: dark)");
+  const storageTheme = window.localStorage.getItem("theme");
+
+  const getThemePreference = () => {
+    if (storageTheme) return storageTheme;
+
+    return prefersDark.matches ? "dark" : "light"
+  }
+
+  const changeTheme = () => {
+    if (removeEvent !== null) {
+      removeEvent();
+    }
+
+    prefersDark.addEventListener("change", changeTheme);
+    removeEvent = () => {
+      prefersDark.removeEventListener("change", changeTheme);
+    }
+
+    const themePreference = getThemePreference();
+    const isDark = themePreference === "dark" || (themePreference === "dark" && prefersDark.matches);
+
+    if (isDark) {
+      check.checked = false;
+      document.body.removeAttribute("data-theme");
+    } else {
+      check.checked = true;
+      document.body.setAttribute("data-theme", "light");
+    }
+  }
+  changeTheme();
+    
+  
+  check.addEventListener("click", (e) => {
+  
+    if (e.target.checked) {
+      window.localStorage.setItem("theme", "light");
+      document.body.setAttribute("data-theme", "light");
+      return;
+    }  else {
+      window.localStorage.setItem("theme", "dark");
+      document.body.removeAttribute("data-theme");
+    }
+  })
+    
+
+  // Drag Button
+  
+  const toggleBtn = document.querySelector(".btn-dark-mode-toggle");
+  const circle = document.querySelector(".circle");
+
+  let isDrag = false;
+  let btnChangeThemeHover = false;
+
+  let btnPositionX;
+  let btnPositionY;
+
+  (() => {
+    const storage = window.localStorage.getItem("btn-theme-position");
+    if (!storage) return;
+
+    const { x, y} = JSON.parse(storage);
+    toggleBtn.style.top = `${y}px`;
+    toggleBtn.style.left = `${x}px`;
+  })()
+
+  circle.addEventListener("mousedown", (e) => {
+    btnChangeThemeHover = true;
+  })
+
+  circle.addEventListener("mouseup", (e) => {
+    btnChangeThemeHover = false;
+  })
+
+  toggleBtn.addEventListener("mousedown", (e) => {
+    e.preventDefault();
+
+    if (!btnChangeThemeHover) {
+
+      btnPositionX = e.clientX - toggleBtn.offsetLeft;
+      btnPositionY = e.clientY - toggleBtn.offsetTop;
+      toggleBtn.style.cursor = "grabbing";
+      isDrag = true;
+    }
+
+  })
+
+  document.addEventListener("mousemove", (e) => {
+    e.preventDefault();
+
+    if (!isDrag) return;
+
+    const viewport = window.visualViewport;
+
+    const x = e.clientX - btnPositionX;
+    const y = e.clientY - btnPositionY;
+
+    if ((viewport.height - toggleBtn.clientHeight) <= y || y <= 0) return;
+    if ((viewport.width - toggleBtn.clientWidth) <= x || x <= 0) return;
+
+    toggleBtn.style.top = `${y}px`;
+    toggleBtn.style.left = `${x}px`;
+
+    window.localStorage.setItem("btn-theme-position", JSON.stringify({ x: x, y: y}));
+
+  })
+
+  document.addEventListener("mouseup", (e) => {
+    isDrag = false;
+    toggleBtn.style.cursor = "grab";
+  })
+</script>

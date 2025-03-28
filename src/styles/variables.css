@@ -1,0 +1,64 @@
+:root {
+  --background-body: rgb(32, 31, 31);
+  --background-footer: rgb(54, 54, 54);
+  --border-bottom-header: rgb(124, 123, 123);
+  --color-title: rgb(255, 255, 255);
+  --color-subtitulo: rgba(255, 255, 255, 0.701);
+  --color-arrow: rgb(255, 255, 255);
+  --color-icons: rgb(255, 255, 255);
+
+
+  --border-input-search: rgb(190, 171, 171);
+  --color-input: white;
+  --background-input: rgb(36, 36, 36);
+  --background-filter-btn: rgb(44, 44, 249);
+
+  
+  --background-exercise-card: rgba(255, 255, 255, 0.126);
+  --color-exercise: rgb(255, 255, 255);
+
+
+  --background-contact-btn-hover: rgb(24, 24, 232);
+  --background-contact-btn: rgba(255, 255, 255, 0);
+  --color-contact-btn: rgb(255, 255, 255);
+  --border-icon-btn: 1.5px solid rgb(255, 255, 255);
+  --border-icon-btn-hover: 1.5px solid rgb(67, 67, 206);
+  --background-icon-btn: rgb(255, 255, 255);
+  --color-contact-icon: rgb(255, 255, 255);
+  --color-icon-hover: rgb(0, 0, 0);
+
+
+  --color-toggle: white; 
+  --border-toggle: white; 
+}
+
+[data-theme="light"] {
+  --background-body: rgb(255, 255, 255);
+  --background-footer: rgb(217, 224, 231);
+  --border-bottom-header: rgb(124, 123, 123);
+  --color-title: rgb(0, 0, 0);
+  --color-subtitulo: rgba(0, 0, 0, 0.701);
+  --color-arrow: rgb(0, 0, 0);
+  --color-icons: rgb(0, 0, 0);
+
+
+  --border-input-search: rgb(108, 108, 108);
+  --color-input: black;
+  --background-input: rgba(217, 224, 231, 0.37);
+  --background-filter-btn: rgb(44, 44, 249);
+  
+  --background-exercise-card: rgb(217, 224, 231);
+  --color-exercise: rgb(0, 0, 0);
+
+
+  --background-contact-btn-hover: rgb(255, 255, 255);
+  --background-contact-btn: transparent;
+  --color-contact-btn: rgb(0, 0, 0);
+  --border-icon-btn: 1px solid rgb(0, 0, 0);
+  --color-contact-icon: rgb(0, 0, 0);
+
+  --background-icon-btn: rgb(33, 89, 230);
+  --color-icon-hover: rgb(255, 255, 255);
+
+  --color-toggle: black; 
+}

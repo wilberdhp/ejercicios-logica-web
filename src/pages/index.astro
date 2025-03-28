@@ -1,11 +1,22 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import { ExercisesContainer } from '../components/React/ExercisesContainer/ExercisesContainer';
+import { getCollection } from 'astro:content';
+import Footer from '../components/Footer.astro';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const exercises = await getCollection('exercises');
 ---
 
-<Layout>
-	<Welcome />
+<Layout 
+  icon="images/favicon.png"
+  metaDescription="Respuestas a ejercicios de lógica de programación con JavaScript"
+  metaKeywords="JavaScript, Programación, Lógica, Lógica de Programación"
+  metaTitle="Ejercicios de lógica con JavaScript"
+  metaOGUrl="https://ejercicios-logica-javascript.netlify.app"
+  image="https://ejercicios-logica-javascript.netlify.app/images/ejercicios-logica.webp"
+>
+  <Header />
+  <ExercisesContainer exercisesArray={exercises} client:visible />
+  <Footer />
 </Layout>

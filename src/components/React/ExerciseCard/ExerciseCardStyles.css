@@ -1,0 +1,45 @@
+.exercise-link {
+  cursor: pointer;
+  text-decoration: none;
+  width: 100%;
+  height: fit-content;
+  max-width: calc(100% / 3 - 10px);
+
+  @media (width <= 1024px) {
+    max-width: calc(100% / 2 - 15px);
+  }
+
+  @media (width <= 768px) {
+    max-width: calc(100%);
+  }
+
+  > h3, p {
+    color: var(--color-exercise);
+  }
+
+}
+
+.title-exercise {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+
+
+.exercise-card {
+  background-color: var(--background-exercise-card);
+  box-shadow: 0 0 3px rgba(255, 255, 255, 0.402);
+  padding: 10px;
+  border-radius: 7px;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all .2s ease;
+  opacity: 0.9;
+}
+
+.exercise-card:hover {
+  opacity: 1;
+  transform: scale(1.03);
+}

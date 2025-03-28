@@ -22,3 +22,9 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# Plantilla md
+plantilla-md
+
+# Configuración de .vscode
+.vscode

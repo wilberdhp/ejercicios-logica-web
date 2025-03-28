@@ -1,0 +1,65 @@
+<footer>
+  <div class="contact-info">
+    <h1>Contácteme para iniciar tu proyecto de desarrollo web</h1>
+    <a class="contact-btn" href="mailto:wilberdhp.dev@gmail.com" target="_blank" rel="noopener noreferrer">
+      <i class="bi bi-envelope-check-fill"></i>
+      Contacto
+    </a>
+  </div>
+
+  <p>Creado por Wilber Hernández &#169;. Casi todos los derechos reservados</p>
+</footer>
+
+<style>
+  footer {
+    min-height: 60dvh;
+    padding-top: 20px;
+    background-color: var(--background-footer);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .contact-info {
+    
+    margin: 50px 20px 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  h1 {
+    max-width: 900px;
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  .contact-btn {
+    margin-top: 30px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    padding: 30px 15px;
+    cursor: pointer;
+    width: fit-content;
+    height: 50px;
+    border: var(--border-icon-btn);
+    font-size: 20px;
+    border-radius: 100vmax;
+    text-decoration: none;
+    color: var(--color-contact-btn);
+    background-color: var(--background-contact-btn);
+    transition: all .2s ease-in-out;
+  }
+
+  .contact-btn:hover {
+    border: 1px solid var(--background-icon-btn);
+    background-color: var(--background-icon-btn);
+    color: var(--color-icon-hover);
+  }
+</style>
